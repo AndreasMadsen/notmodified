@@ -1,7 +1,7 @@
 {
   "name": "notmodified",
   "description": "set and validate http cache headers",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Andreas Madsen <amwebdk@gmail.com>",
   "main": "./notmodified.js",
   "scripts": {
@@ -22,7 +22,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": "0.10 || 0.9",
+    "node": "0.10 || 0.9 || 0.8",
     "npm": "1"
   }
 }
