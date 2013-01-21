@@ -336,6 +336,21 @@ server.listen(0, '127.0.0.1', function () {
     });
   });
 
+  //
+  // Nothing set
+  //
+  test('Status code is 200 if nothing is required', function (t) {
+    request(hostname + '/none', {
+      mtime: start,
+      hash: hash
+    }, function (res) {
+      t.equal(res.headers.etag, undefined);
+      t.equal(res.headers['last-modified'], undefined);
+      t.equal(res.statusCode, 200);
+      t.end();
+    });
+  });
+
   test('close', function (t) {
     server.close(function () {
       t.end();

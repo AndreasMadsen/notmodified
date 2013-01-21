@@ -38,6 +38,10 @@ module.exports = function (req, res, info) {
     mtimeValid = true;
   }
 
+  if (!mtime && !hash) {
+    mtimeValid = false;
+  }
+
   // Check if the given info and headers match
   var valid = (hashValid && mtimeValid);
 
