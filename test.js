@@ -75,7 +75,7 @@ server.listen(0, '127.0.0.1', function () {
   test('Status code is 200 if just mtime is wrong and both is required', function (t) {
     request(hostname + '/both', {
       mtime: new Date(0),
-      hash: hash
+      hash: '"' + hash + '"'
     }, function (res) {
       t.equal(res.headers.etag, '"' + hash + '"');
       t.equal(res.headers['last-modified'], start.toUTCString());
@@ -86,7 +86,7 @@ server.listen(0, '127.0.0.1', function () {
 
   test('Status code is 200 if only etag is send and both is required', function (t) {
     request(hostname + '/both', {
-      hash: hash
+      hash: '"' + hash + '"'
     }, function (res) {
       t.equal(res.headers.etag, '"' + hash + '"');
       t.equal(res.headers['last-modified'], start.toUTCString());
@@ -98,7 +98,7 @@ server.listen(0, '127.0.0.1', function () {
   test('Status code is 200 if just etag is wrong and both is required', function (t) {
     request(hostname + '/both', {
       mtime: start,
-      hash: 'WRONG'
+      hash: '"WRONG"'
     }, function (res) {
       t.equal(res.headers.etag, '"' + hash + '"');
       t.equal(res.headers['last-modified'], start.toUTCString());
@@ -110,7 +110,7 @@ server.listen(0, '127.0.0.1', function () {
   test('Status code is 304 if both match and both is required', function (t) {
     request(hostname + '/both', {
       mtime: start,
-      hash: hash
+      hash: '"' + hash + '"'
     }, function (res) {
       t.equal(res.headers.etag, '"' + hash + '"');
       t.equal(res.headers['last-modified'], start.toUTCString());
@@ -122,7 +122,7 @@ server.listen(0, '127.0.0.1', function () {
   test('Status code is 200 if mtime is old and both is required', function (t) {
     request(hostname + '/both', {
       mtime: new Date(start.getTime() - 1000),
-      hash: hash
+      hash: '"' + hash + '"'
     }, function (res) {
       t.equal(res.headers.etag, '"' + hash + '"');
       t.equal(res.headers['last-modified'], start.toUTCString());
@@ -134,7 +134,7 @@ server.listen(0, '127.0.0.1', function () {
   test('Status code is 304 if mtime is new and both is required', function (t) {
     request(hostname + '/both', {
       mtime: new Date(start.getTime() + 1000),
-      hash: hash
+      hash: '"' + hash + '"'
     }, function (res) {
       t.equal(res.headers.etag, '"' + hash + '"');
       t.equal(res.headers['last-modified'], start.toUTCString());
@@ -179,7 +179,7 @@ server.listen(0, '127.0.0.1', function () {
 
   test('Status code is 200 if only etag is send and mtime is required', function (t) {
     request(hostname + '/mtime', {
-      hash: hash
+      hash: '"' + hash + '"'
     }, function (res) {
       t.equal(res.headers.etag, undefined);
       t.equal(res.headers['last-modified'], start.toUTCString());
@@ -191,7 +191,7 @@ server.listen(0, '127.0.0.1', function () {
   test('Status code is 200 if both are send and mtime is required', function (t) {
     request(hostname + '/mtime', {
       mtime: start,
-      hash: hash
+      hash: '"' + hash + '"'
     }, function (res) {
       t.equal(res.headers.etag, undefined);
       t.equal(res.headers['last-modified'], start.toUTCString());
@@ -236,7 +236,7 @@ server.listen(0, '127.0.0.1', function () {
 
   test('Status code is 304 if only etag is send and etag is required', function (t) {
     request(hostname + '/hash', {
-      hash: hash
+      hash: '"' + hash + '"'
     }, function (res) {
       t.equal(res.headers.etag, '"' + hash + '"');
       t.equal(res.headers['last-modified'], undefined);
@@ -247,7 +247,7 @@ server.listen(0, '127.0.0.1', function () {
 
   test('Status code is 200 if etag is wrong and etag is required', function (t) {
     request(hostname + '/hash', {
-      hash: 'WRONG'
+      hash: '"WRONG"'
     }, function (res) {
       t.equal(res.headers.etag, '"' + hash + '"');
       t.equal(res.headers['last-modified'], undefined);
@@ -270,7 +270,7 @@ server.listen(0, '127.0.0.1', function () {
   test('Status code is 200 if both are send and etag is required', function (t) {
     request(hostname + '/hash', {
       mtime: start,
-      hash: hash
+      hash: '"' + hash + '"'
     }, function (res) {
       t.equal(res.headers.etag, '"' + hash + '"');
       t.equal(res.headers['last-modified'], undefined);
@@ -293,7 +293,7 @@ server.listen(0, '127.0.0.1', function () {
 
   test('Status code is 304 if only etag is send and weak etag is required', function (t) {
     request(hostname + '/weak', {
-      hash: hash
+      hash: 'W/"' + hash + '"'
     }, function (res) {
       t.equal(res.headers.etag, 'W/"' + hash + '"');
       t.equal(res.headers['last-modified'], undefined);
@@ -304,7 +304,7 @@ server.listen(0, '127.0.0.1', function () {
 
   test('Status code is 200 if etag is wrong and weak etag is required', function (t) {
     request(hostname + '/weak', {
-      hash: 'WRONG'
+      hash: 'W/"WRONG"'
     }, function (res) {
       t.equal(res.headers.etag, 'W/"' + hash + '"');
       t.equal(res.headers['last-modified'], undefined);
@@ -327,7 +327,7 @@ server.listen(0, '127.0.0.1', function () {
   test('Status code is 200 if both are send and weak etag is required', function (t) {
     request(hostname + '/weak', {
       mtime: start,
-      hash: hash
+      hash: 'W/"' + hash + '"'
     }, function (res) {
       t.equal(res.headers.etag, 'W/"' + hash + '"');
       t.equal(res.headers['last-modified'], undefined);
@@ -342,7 +342,7 @@ server.listen(0, '127.0.0.1', function () {
   test('Status code is 200 if nothing is required', function (t) {
     request(hostname + '/none', {
       mtime: start,
-      hash: hash
+      hash: 'W/"' + hash + '"'
     }, function (res) {
       t.equal(res.headers.etag, undefined);
       t.equal(res.headers['last-modified'], undefined);
