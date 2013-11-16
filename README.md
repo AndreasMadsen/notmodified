@@ -4,7 +4,7 @@
 
 ## Installation
 
-```sheel
+```shell
 npm install notmodified
 ```
 
@@ -31,11 +31,11 @@ http.createServer(function (req, res) {
 ## API documentation
 
 ```javascript
-var notmodified = requrie('notmodified');
+var notmodified = require('notmodified');
 var valid = notmodified(req, res, cache);
 ```
 
-`requrie('notmodified')` returns a function where the first two arguments
+`require('notmodified')` returns a function where the first two arguments
 are the http `req` and `res` object. The next argument (`cache`) is an object
 containing the cache validation data.
 
@@ -46,17 +46,17 @@ client cache is valid and `res.statusCode` has been set to `304`. However
 The `cache` object can have three optional properties:
 
 * `hash` this is the `ETag` value and must be a string. If its not set no `ETag`
-  header will be send. If the client sends a `if-none-match` but no `hash`
+  header will be sent. If the client sends a `if-none-match` but no `hash`
   value is given `valid` will be `false`.
 
 * `mtime` is the `Last-Modified` value and must be `Date` object. Just as with
-  the `ETag` the header will only be send if `mtime` is specified and `valid`
-  will be `false` if the client send `If-Modified-Since` but no `mtime` was set.
+  the `ETag` the header will only be sent if `mtime` is specified and `valid`
+  will be `false` if the client sent `If-Modified-Since` but no `mtime` was set.
 
 * `weak` this is an extension to the `ETag` header and must be a boolean. If
-  its not set it defaults to `false`. This indicated if the `ETag` is
+  its not set it defaults to `false`. This indicates whether the `ETag` is
   byte-by-byte valid and if a `Range` request makes sence. Specifically if and
-  noly if `true` `ETag` will be prefixed with `W/`.
+  only if `true` `ETag` will be prefixed with `W/`.
 
 ## License
 
