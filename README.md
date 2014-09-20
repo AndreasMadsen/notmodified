@@ -56,7 +56,7 @@ The `cache` object can have three optional properties:
 * `weak` this is an extension to the `ETag` header and must be a boolean. If
   its not set it defaults to `false`. This indicated if the `ETag` is
   byte-by-byte valid and if a `Range` request makes sence. Specifically if and
-  noly if `true` `ETag` will be prefixed with `W/`.
+  only if `true` `ETag` will be prefixed with `W/`.
 
 ## License
 
